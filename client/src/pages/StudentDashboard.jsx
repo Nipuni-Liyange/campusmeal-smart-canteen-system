@@ -18,13 +18,13 @@ function StudentDashboard() {
         <div className="features">
           <div className="card">
             <h3>Today’s Menu</h3>
-            <p>View available dinner items.</p>
+            <p>View available dinner items and place your order.</p>
             <Link to="/today-menu" className="btn">View Menu</Link>
           </div>
 
           <div className="card">
             <h3>My Orders</h3>
-            <p>Track your dinner orders.</p>
+            <p>Track your dinner orders and pickup token.</p>
           </div>
         </div>
       </section>

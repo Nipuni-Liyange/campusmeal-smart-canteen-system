@@ -6,6 +6,7 @@ import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import TodayMenu from "./pages/TodayMenu";
+import MyOrders from "./pages/MyOrders";
 
 function App() {
   return (
@@ -37,6 +38,15 @@ function App() {
   element={
     <ProtectedRoute allowedRole="student">
       <TodayMenu />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/my-orders"
+  element={
+    <ProtectedRoute allowedRole="student">
+      <MyOrders />
     </ProtectedRoute>
   }
 />

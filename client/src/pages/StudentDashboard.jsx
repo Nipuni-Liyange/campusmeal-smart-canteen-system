@@ -1,4 +1,5 @@
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 function StudentDashboard() {
   const { user, logout } = useAuth();
@@ -18,6 +19,7 @@ function StudentDashboard() {
           <div className="card">
             <h3>Today’s Menu</h3>
             <p>View available dinner items.</p>
+            <Link to="/today-menu" className="btn">View Menu</Link>
           </div>
 
           <div className="card">

@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import TodayMenu from "./pages/TodayMenu";
 
 function App() {
   return (
@@ -30,7 +31,19 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+  path="/today-menu"
+  element={
+    <ProtectedRoute allowedRole="student">
+      <TodayMenu />
+    </ProtectedRoute>
+  }
+/>
+
     </Routes>
+
+    
   );
 }
 

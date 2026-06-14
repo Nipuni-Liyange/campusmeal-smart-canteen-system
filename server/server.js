@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
-
+const menuRoutes = require("./routes/menuRoutes");
 const app = express();
 
 // Connect MongoDB
@@ -16,7 +16,7 @@ app.use(express.json());
 
 // API routes
 app.use("/api/auth", authRoutes);
-
+app.use("/api/menu", menuRoutes);
 // Test route
 app.get("/", (req, res) => {
   res.send("CampusMeal API is running...");

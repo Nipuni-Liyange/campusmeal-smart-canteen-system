@@ -31,6 +31,7 @@ function AdminDashboard() {
           <div className="card">
             <h3>Analytics</h3>
             <p>View daily food demand and revenue.</p>
+            <Link to="/analytics" className="btn">View Analytics</Link>
           </div>
         </div>
       </section>

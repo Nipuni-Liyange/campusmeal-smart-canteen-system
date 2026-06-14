@@ -9,6 +9,7 @@ import TodayMenu from "./pages/TodayMenu";
 import MyOrders from "./pages/MyOrders";
 import ManageMenu from "./pages/ManageMenu";
 import ManageOrders from "./pages/ManageOrders";
+import Analytics from "./pages/Analytics";
 
 function App() {
   return (
@@ -67,6 +68,15 @@ function App() {
   element={
     <ProtectedRoute allowedRole="admin">
       <ManageOrders />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/analytics"
+  element={
+    <ProtectedRoute allowedRole="admin">
+      <Analytics />
     </ProtectedRoute>
   }
 />

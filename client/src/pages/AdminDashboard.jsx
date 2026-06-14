@@ -1,4 +1,5 @@
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 function AdminDashboard() {
   const { user, logout } = useAuth();
@@ -18,11 +19,13 @@ function AdminDashboard() {
           <div className="card">
             <h3>Manage Menu</h3>
             <p>Add, edit, and remove daily dinner items.</p>
+            <Link to="/manage-menu" className="btn">Manage Menu</Link>
           </div>
 
           <div className="card">
             <h3>Manage Orders</h3>
             <p>View and update student orders.</p>
+            <Link to="/manage-orders" className="btn">Manage Orders</Link>
           </div>
 
           <div className="card">

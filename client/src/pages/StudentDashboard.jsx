@@ -25,6 +25,7 @@ function StudentDashboard() {
           <div className="card">
             <h3>My Orders</h3>
             <p>Track your dinner orders and pickup token.</p>
+            <Link to="/my-orders" className="btn">View Orders</Link>
           </div>
         </div>
       </section>

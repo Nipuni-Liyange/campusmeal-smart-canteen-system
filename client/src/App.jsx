@@ -7,6 +7,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import TodayMenu from "./pages/TodayMenu";
 import MyOrders from "./pages/MyOrders";
+import ManageMenu from "./pages/ManageMenu";
+import ManageOrders from "./pages/ManageOrders";
 
 function App() {
   return (
@@ -51,6 +53,23 @@ function App() {
   }
 />
 
+<Route
+  path="/manage-menu"
+  element={
+    <ProtectedRoute allowedRole="admin">
+      <ManageMenu />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/manage-orders"
+  element={
+    <ProtectedRoute allowedRole="admin">
+      <ManageOrders />
+    </ProtectedRoute>
+  }
+/>
     </Routes>
 
     

@@ -8,12 +8,13 @@ function ManageMenu() {
 
   const [menuItems, setMenuItems] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    quantityAvailable: "",
-    date: today,
-    isAvailable: true,
+    name: "Rice & Curry",
+  recipeType: "Fish",
+  description: "",
+  normalPrice: "",
+  fullPrice: "",
+  date: today,
+  isAvailable: true,
   });
 
   const [message, setMessage] = useState("");
@@ -50,17 +51,18 @@ function ManageMenu() {
     try {
       await API.post("/menu", {
         ...formData,
-        price: Number(formData.price),
-        quantityAvailable: Number(formData.quantityAvailable),
+        normalPrice: Number(formData.normalPrice),
+        fullPrice: Number(formData.fullPrice),
       });
 
       setMessage("Menu item added successfully");
 
       setFormData({
-        name: "",
+        name: "Rice & Curry",
+        recipeType: "Fish",
         description: "",
-        price: "",
-        quantityAvailable: "",
+        normalPrice: "",
+        fullPrice: "",
         date: today,
         isAvailable: true,
       });
@@ -115,32 +117,47 @@ function ManageMenu() {
             onChange={handleChange}
           />
 
+        <label>Recipe Type</label>
+        <select
+         name="recipeType"
+         value={formData.recipeType}
+         onChange={handleChange}
+        >
+        <option value="Fish">Fish</option>
+        <option value="Chicken">Chicken</option>
+        <option value="Egg">Egg</option>
+        <option value="Sausages">Sausages</option>
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Other">Other</option>
+</select>
+
           <label>Description</label>
-          <input
-            type="text"
-            name="description"
-            placeholder="Chicken rice and curry with vegetables"
-            value={formData.description}
-            onChange={handleChange}
-          />
+<input
+  type="text"
+  name="description"
+  placeholder="Rice, dhal curry, sambol, beetroot curry"
+  value={formData.description}
+  onChange={handleChange}
+/>
 
-          <label>Price</label>
-          <input
-            type="number"
-            name="price"
-            placeholder="350"
-            value={formData.price}
-            onChange={handleChange}
-          />
+<label>Normal Price</label>
+<input
+  type="number"
+  name="normalPrice"
+  placeholder="150"
+  value={formData.normalPrice}
+  onChange={handleChange}
+/>
 
-          <label>Available Quantity</label>
-          <input
-            type="number"
-            name="quantityAvailable"
-            placeholder="50"
-            value={formData.quantityAvailable}
-            onChange={handleChange}
-          />
+<label>Full Price</label>
+<input
+  type="number"
+  name="fullPrice"
+  placeholder="200"
+  value={formData.fullPrice}
+  onChange={handleChange}
+/>
+
 
           <label>Date</label>
           <input
@@ -171,8 +188,9 @@ function ManageMenu() {
               <div className="card" key={item._id}>
                 <h3>{item.name}</h3>
                 <p>{item.description}</p>
-                <p><strong>Price:</strong> Rs. {item.price}</p>
-                <p><strong>Quantity:</strong> {item.quantityAvailable}</p>
+                <p><strong>Recipe:</strong> {item.recipeType}</p>
+                <p><strong>Normal:</strong> Rs. {item.normalPrice}</p>
+                <p><strong>Full:</strong> Rs. {item.fullPrice}</p>
                 <p><strong>Date:</strong> {item.date}</p>
                 <p><strong>Available:</strong> {item.isAvailable ? "Yes" : "No"}</p>
 

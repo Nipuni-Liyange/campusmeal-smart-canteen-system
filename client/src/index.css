@@ -115,7 +115,7 @@ a {
   align-items: center;
   background:
     linear-gradient(rgba(248, 247, 242, 0.8), rgba(248, 247, 242, 0.9)),
-    url("./assets/food-bg.jpg");
+    url("./assets/hero.png");
   background-size: cover;
   background-position: center;
   padding: 20px;
@@ -315,5 +315,143 @@ select {
   td {
     padding: 10px;
     font-size: 14px;
+  }
+}
+
+.deadline-box {
+  max-width: 1100px;
+  margin: 22px 0 34px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border-left: 5px solid #f28c28;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #333;
+}
+
+.deadline-icon {
+  width: 42px;
+  height: 42px;
+  background: #fff3e0;
+  color: #f28c28;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.deadline-box strong {
+  color: #1f7a3f;
+  font-size: 17px;
+}
+
+.deadline-box p {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.today-menu-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 38px;
+  display: grid;
+  grid-template-columns: 1fr 390px;
+  gap: 45px;
+  align-items: start;
+}
+
+.menu-card-left {
+  width: 100%;
+}
+
+.menu-card-right {
+  width: 100%;
+}
+
+.recipe-image-panel {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+}
+
+.recipe-image-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--recipe-image);
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  transform: scale(1.12);
+}
+
+.recipe-image-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.glass-recipe-box {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  padding: 22px 26px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.14);
+}
+
+.glass-recipe-box h4 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  color: #1f7a3f;
+  font-size: 21px;
+}
+
+.recipe-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.recipe-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #222;
+}
+
+.recipe-list li::before {
+  content: "●";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f28c28;
+  font-size: 18px;
+}
+
+@media (max-width: 900px) {
+  .today-menu-card {
+    grid-template-columns: 1fr;
+    padding: 28px;
+  }
+
+  .recipe-image-panel {
+    min-height: 250px;
   }
 }

@@ -8,19 +8,26 @@ const menuItemSchema = new mongoose.Schema(
       trim: true,
     },
 
+    recipeType: {
+      type: String,
+      required: true,
+      trim: true,
+      enum: ["Fish", "Chicken", "Egg", "Sausages", "Vegetarian", "Other"],
+    },
+
     description: {
       type: String,
       required: true,
       trim: true,
     },
 
-    price: {
+    normalPrice: {
       type: Number,
       required: true,
       min: 0,
     },
 
-    quantityAvailable: {
+    fullPrice: {
       type: Number,
       required: true,
       min: 0,

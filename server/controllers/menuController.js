@@ -10,10 +10,24 @@ const getTodayDate = () => {
 // Add new menu item - Admin only
 const createMenuItem = async (req, res) => {
   try {
-    const { name, description, price, quantityAvailable, date, isAvailable } =
-      req.body;
+    const {
+      name,
+      recipeType,
+      description,
+      normalPrice,
+      fullPrice,
+      date,
+      isAvailable,
+    } = req.body;
 
-    if (!name || !description || price === undefined || quantityAvailable === undefined || !date) {
+    if (
+      !name ||
+      !recipeType ||
+      !description ||
+      normalPrice === undefined ||
+      fullPrice === undefined ||
+      !date
+    ) {
       return res.status(400).json({
         message: "Please fill all required fields",
       });
@@ -21,9 +35,10 @@ const createMenuItem = async (req, res) => {
 
     const menuItem = await MenuItem.create({
       name,
+      recipeType,
       description,
-      price,
-      quantityAvailable,
+      normalPrice,
+      fullPrice,
       date,
       isAvailable,
       createdBy: req.user._id,
@@ -40,7 +55,6 @@ const createMenuItem = async (req, res) => {
     });
   }
 };
-
 // Get all menu items - Admin only
 const getAllMenuItems = async (req, res) => {
   try {
@@ -65,7 +79,6 @@ const getTodayMenuItems = async (req, res) => {
     const menuItems = await MenuItem.find({
       date: today,
       isAvailable: true,
-      quantityAvailable: { $gt: 0 },
     }).sort({ createdAt: -1 });
 
     res.status(200).json(menuItems);

@@ -29,17 +29,28 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
-    quantity: {
-      type: Number,
+    recipeType: {
+      type: String,
       required: true,
-      min: 1,
-      default: 1,
     },
 
-    price: {
+    portionSize: {
+      type: String,
+      enum: ["Normal", "Full"],
+      required: true,
+    },
+
+    basePrice: {
       type: Number,
       required: true,
     },
+
+    extras: [
+      {
+        name: String,
+        price: Number,
+      },
+    ],
 
     totalAmount: {
       type: Number,

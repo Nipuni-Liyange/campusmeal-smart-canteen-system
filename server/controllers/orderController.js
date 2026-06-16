@@ -1,11 +1,34 @@
 const Order = require("../models/Order");
 const MenuItem = require("../models/MenuItem");
 
-// Get today's date in YYYY-MM-DD format
+// Get today's date in Sri Lanka time
 const getTodayDate = () => {
   return new Date().toLocaleDateString("en-CA", {
     timeZone: "Asia/Colombo",
   });
+};
+
+// Check whether current time is before 3.00 PM Sri Lanka time
+const isBeforeDeadline = () => {
+  const now = new Date();
+
+  const sriLankaTime = new Date(
+    now.toLocaleString("en-US", { timeZone: "Asia/Colombo" })
+  );
+
+  const hours = sriLankaTime.getHours();
+  const minutes = sriLankaTime.getMinutes();
+
+  // Deadline: 3.00 PM
+  if (hours < 15) {
+    return true;
+  }
+
+  if (hours === 15 && minutes === 0) {
+    return true;
+  }
+
+  return false;
 };
 
 // Generate order token
@@ -14,14 +37,34 @@ const generateOrderToken = () => {
   return `CM-${randomNumber}`;
 };
 
+// Fixed extra item prices
+const extraPrices = {
+  Egg: 80,
+  Sausages: 120,
+  Chicken: 180,
+  Fish: 180,
+};
+
 // Student places an order
 const createOrder = async (req, res) => {
   try {
-    const { menuItemId, quantity } = req.body;
+    const { menuItemId, portionSize, extras } = req.body;
 
-    if (!menuItemId || !quantity) {
+    if (!menuItemId || !portionSize) {
       return res.status(400).json({
-        message: "Menu item and quantity are required",
+        message: "Menu item and portion size are required",
+      });
+    }
+
+    if (!["Normal", "Full"].includes(portionSize)) {
+      return res.status(400).json({
+        message: "Invalid portion size",
+      });
+    }
+
+    if (!isBeforeDeadline()) {
+      return res.status(400).json({
+        message: "Ordering is closed for today. Please order before 3.00 PM.",
       });
     }
 
@@ -39,12 +82,6 @@ const createOrder = async (req, res) => {
       });
     }
 
-    if (menuItem.quantityAvailable < quantity) {
-      return res.status(400).json({
-        message: "Not enough quantity available",
-      });
-    }
-
     const today = getTodayDate();
 
     if (menuItem.date !== today) {
@@ -53,12 +90,27 @@ const createOrder = async (req, res) => {
       });
     }
 
-    const totalAmount = menuItem.price * quantity;
+    const basePrice =
+      portionSize === "Normal" ? menuItem.normalPrice : menuItem.fullPrice;
+
+    const selectedExtras = Array.isArray(extras) ? extras : [];
+
+    const calculatedExtras = selectedExtras.map((extraName) => ({
+      name: extraName,
+      price: extraPrices[extraName] || 0,
+    }));
+
+    const extrasTotal = calculatedExtras.reduce(
+      (sum, extra) => sum + extra.price,
+      0
+    );
+
+    const totalAmount = basePrice + extrasTotal;
 
     let orderToken = generateOrderToken();
 
-    // Ensure token is unique
     let existingToken = await Order.findOne({ orderToken });
+
     while (existingToken) {
       orderToken = generateOrderToken();
       existingToken = await Order.findOne({ orderToken });
@@ -70,22 +122,15 @@ const createOrder = async (req, res) => {
       studentEmail: req.user.email,
       menuItem: menuItem._id,
       foodName: menuItem.name,
-      quantity,
-      price: menuItem.price,
+      recipeType: menuItem.recipeType,
+      portionSize,
+      basePrice,
+      extras: calculatedExtras,
       totalAmount,
       status: "Pending",
       orderToken,
       date: today,
     });
-
-    // Reduce available quantity
-    menuItem.quantityAvailable = menuItem.quantityAvailable - quantity;
-
-    if (menuItem.quantityAvailable === 0) {
-      menuItem.isAvailable = false;
-    }
-
-    await menuItem.save();
 
     res.status(201).json({
       message: "Order placed successfully",
@@ -99,11 +144,17 @@ const createOrder = async (req, res) => {
   }
 };
 
-// Student views own orders
+// Student views own orders - last 7 days
 const getMyOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ student: req.user._id })
-      .populate("menuItem", "name description price")
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const orders = await Order.find({
+      student: req.user._id,
+      createdAt: { $gte: sevenDaysAgo },
+    })
+      .populate("menuItem", "name recipeType description normalPrice fullPrice")
       .sort({ createdAt: -1 });
 
     res.status(200).json(orders);
@@ -120,7 +171,7 @@ const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find()
       .populate("student", "name email regNo")
-      .populate("menuItem", "name price")
+      .populate("menuItem", "name recipeType normalPrice fullPrice")
       .sort({ createdAt: -1 });
 
     res.status(200).json(orders);
@@ -202,15 +253,6 @@ const cancelOrder = async (req, res) => {
 
     order.status = "Cancelled";
     await order.save();
-
-    // Add cancelled quantity back to menu item
-    const menuItem = await MenuItem.findById(order.menuItem);
-
-    if (menuItem) {
-      menuItem.quantityAvailable = menuItem.quantityAvailable + order.quantity;
-      menuItem.isAvailable = true;
-      await menuItem.save();
-    }
 
     res.status(200).json({
       message: "Order cancelled successfully",

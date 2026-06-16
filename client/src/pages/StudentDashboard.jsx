@@ -5,14 +5,14 @@ function StudentDashboard() {
   const { user, logout } = useAuth();
 
   return (
-    <div className="page">
+    <div className="page dashboard-bg-page ">
       <nav className="navbar">
-        <h2>CampusMeal</h2>
+        <h2>හෙළ බොජුන්</h2>
         <button className="btn secondary" onClick={logout}>Logout</button>
       </nav>
 
       <section className="dashboard">
-        <h1>Welcome, {user?.name}</h1>
+        <h1>Welcome , {user?.name}</h1>
         <p>This is the student dashboard.</p>
 
         <div className="features">

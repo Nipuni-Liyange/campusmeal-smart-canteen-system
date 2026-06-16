@@ -6,6 +6,7 @@ import heroImage from "../assets/hero.png";
 
 function TodayMenu() {
   const [menuItems, setMenuItems] = useState([]);
+  const [orderOptions, setOrderOptions] = useState({});
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const { logout } = useAuth();
@@ -28,25 +29,39 @@ function TodayMenu() {
     return description.split(",").map((item) => item.trim());
   };
 
-  const placeOrder = async (menuItemId) => {
-    setMessage("");
-    setError("");
+ const placeOrder = async (menuItemId) => {
+  setMessage("");
+  setError("");
 
-    try {
-      const res = await API.post("/orders", {
-        menuItemId,
-        quantity: 1,
-      });
+  try {
+    const options = orderOptions[menuItemId] || {
+      portionSize: "Normal",
+      extras: [],
+    };
 
-      setMessage(
-        `Order placed successfully! Your token is ${res.data.order.orderToken}`
-      );
+    const res = await API.post("/orders", {
+      menuItemId,
+      portionSize: options.portionSize || "Normal",
+      extras: options.extras || [],
+    });
 
-      fetchMenu();
-    } catch (err) {
-      setError(err.response?.data?.message || "Order failed");
-    }
-  };
+    setMessage(
+      `Order placed successfully! Your token is ${res.data.order.orderToken}`
+    );
+
+    setTimeout(() => {
+      setMessage("");
+    }, 4000);
+
+    fetchMenu();
+  } catch (err) {
+    setError(err.response?.data?.message || err.message || "Order failed");
+
+    setTimeout(() => {
+      setError("");
+    }, 4000);
+  }
+};
 
   return (
     <div className="page">
@@ -71,10 +86,10 @@ function TodayMenu() {
   </div>
 </div>
 
-        {message && <p className="success">{message}</p>}
-        {error && <p className="error">{error}</p>}
+        {message && <div className="toast-message success-toast">{message}</div>}
+        {error && <div className="toast-message error-toast">{error}</div>}
 
-        <div className="features">
+        <div className="today-menu-list">
           {menuItems.length === 0 ? (
             <p>No menu items available today.</p>
           ) : (

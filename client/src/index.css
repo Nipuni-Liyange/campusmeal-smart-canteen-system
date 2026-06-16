@@ -507,3 +507,45 @@ select {
     max-width: none;
   }
 }
+
+.order-section {
+  margin-top: 35px;
+}
+
+.order-section-title {
+  color: #1f7a3f;
+  margin-bottom: 18px;
+  font-size: 24px;
+}
+
+.order-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.order-card {
+  min-height: 280px;
+}
+
+.extras-list {
+  margin: 8px 0 10px;
+  padding-left: 20px;
+}
+
+.extras-list li {
+  margin-bottom: 5px;
+}
+
+.order-date {
+  color: #666;
+  font-size: 14px;
+}
+
+.empty-text {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  color: #666;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}

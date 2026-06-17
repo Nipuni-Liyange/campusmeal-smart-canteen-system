@@ -1,13 +1,13 @@
 const MenuItem = require("../models/MenuItem");
 
-// Get today's date in YYYY-MM-DD format
+// Get today's date in Sri Lanka time
 const getTodayDate = () => {
   return new Date().toLocaleDateString("en-CA", {
     timeZone: "Asia/Colombo",
   });
 };
 
-// Add new menu item - Admin only
+// Admin creates a menu item
 const createMenuItem = async (req, res) => {
   try {
     const {
@@ -20,14 +20,7 @@ const createMenuItem = async (req, res) => {
       isAvailable,
     } = req.body;
 
-    if (
-      !name ||
-      !recipeType ||
-      !description ||
-      normalPrice === undefined ||
-      fullPrice === undefined ||
-      !date
-    ) {
+    if (!name || !recipeType || !description || !normalPrice || !fullPrice || !date) {
       return res.status(400).json({
         message: "Please fill all required fields",
       });
@@ -55,12 +48,11 @@ const createMenuItem = async (req, res) => {
     });
   }
 };
-// Get all menu items - Admin only
+
+// Admin gets all menu items
 const getAllMenuItems = async (req, res) => {
   try {
-    const menuItems = await MenuItem.find()
-      .populate("createdBy", "name email")
-      .sort({ createdAt: -1 });
+    const menuItems = await MenuItem.find().sort({ createdAt: -1 });
 
     res.status(200).json(menuItems);
   } catch (error) {
@@ -71,8 +63,8 @@ const getAllMenuItems = async (req, res) => {
   }
 };
 
-// Get today's available menu items - Student side
-const getTodayMenuItems = async (req, res) => {
+// Student gets today's available menu items
+const getTodayMenu = async (req, res) => {
   try {
     const today = getTodayDate();
 
@@ -90,33 +82,7 @@ const getTodayMenuItems = async (req, res) => {
   }
 };
 
-// Update menu item - Admin only
-const updateMenuItem = async (req, res) => {
-  try {
-    const menuItem = await MenuItem.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!menuItem) {
-      return res.status(404).json({
-        message: "Menu item not found",
-      });
-    }
-
-    res.status(200).json({
-      message: "Menu item updated successfully",
-      menuItem,
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Server error while updating menu item",
-      error: error.message,
-    });
-  }
-};
-
-// Delete menu item - Admin only
+// Admin deletes a menu item
 const deleteMenuItem = async (req, res) => {
   try {
     const menuItem = await MenuItem.findByIdAndDelete(req.params.id);
@@ -141,7 +107,6 @@ const deleteMenuItem = async (req, res) => {
 module.exports = {
   createMenuItem,
   getAllMenuItems,
-  getTodayMenuItems,
-  updateMenuItem,
+  getTodayMenu,
   deleteMenuItem,
 };

@@ -39,10 +39,10 @@ const generateOrderToken = () => {
 
 // Fixed extra item prices
 const extraPrices = {
-  Egg: 80,
-  Sausages: 120,
-  Chicken: 180,
-  Fish: 180,
+  Egg: 50,
+  Sausages: 50,
+  Chicken: 80,
+  Fish: 50,
 };
 
 // Student places an order
@@ -266,10 +266,33 @@ const cancelOrder = async (req, res) => {
   }
 };
 
+// Admin deletes an order
+const deleteOrder = async (req, res) => {
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Order deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server error while deleting order",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createOrder,
   getMyOrders,
   getAllOrders,
   updateOrderStatus,
   cancelOrder,
+  deleteOrder,
 };

@@ -85,8 +85,22 @@ function ManageOrders() {
       getOrderDate(order) !== yesterday &&
       isWithinLastWeek(order)
   );
+  
+  const isTodayOrder = (order) => {
+  return getOrderDate(order) === today;
+};
 
-  const renderOrderTable = (orderList) => {
+const getDisplayStatus = (order) => {
+  const orderDate = getOrderDate(order);
+
+  if (orderDate !== today && order.status === "Pending") {
+    return "Expired";
+  }
+
+  return order.status;
+};
+
+  const renderOrderTable = (orderList, allowUpdate = false) => {
     if (orderList.length === 0) {
       return <p className="empty-text">No orders found.</p>;
     }
@@ -125,7 +139,7 @@ function ManageOrders() {
               <th>Total</th>
               <th>Token</th>
               <th>Status</th>
-              <th>Update</th>
+              {allowUpdate && <th>Update</th>}
               <th>Delete</th>
             
             </tr>
@@ -156,33 +170,35 @@ function ManageOrders() {
                 <td>{order.orderToken}</td>
 
                 <td>
-                  <span className={`status ${order.status.toLowerCase()}`}>
-                    {order.status}
-                  </span>
+                 <span className={`status ${getDisplayStatus(order).toLowerCase()}`}>
+                  {getDisplayStatus(order)}
+                 </span> 
                 </td>
 
+               {allowUpdate && (
+  <td>
+    <select
+      value={order.status}
+      onChange={(e) => updateStatus(order._id, e.target.value)}
+    >
+      <option value="Pending">Pending</option>
+      <option value="Accepted">Accepted</option>
+      <option value="Preparing">Preparing</option>
+      <option value="Ready">Ready</option>
+      <option value="Collected">Collected</option>
+      <option value="Cancelled">Cancelled</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+  </td>
+)} 
                 <td>
-                  <select
-                    value={order.status}
-                    onChange={(e) => updateStatus(order._id, e.target.value)}
-                  >
-                    <option value="Pending">Pending</option>
-                    <option value="Accepted">Accepted</option>
-                    <option value="Preparing">Preparing</option>
-                    <option value="Ready">Ready</option>
-                    <option value="Collected">Collected</option>
-                    <option value="Cancelled">Cancelled</option>
-                    <option value="Rejected">Rejected</option>
-                  </select>
-                </td>
-                <td>
-  <button
-    className="btn secondary small-btn"
-    onClick={() => deleteOrder(order._id)}
-  >
-    Delete
-  </button>
-</td>
+              <button
+              className="btn secondary small-btn"
+              onClick={() => deleteOrder(order._id)}
+              >
+              Delete
+              </button>
+              </td>
               </tr>
             ))}
           </tbody>
@@ -191,12 +207,12 @@ function ManageOrders() {
     );
   };
 
-  const renderOrderSection = (title, orderList) => (
-    <div className="admin-order-section">
-      <h2>{title}</h2>
-      {renderOrderTable(orderList)}
-    </div>
-  );
+ const renderOrderSection = (title, orderList, allowUpdate = false) => (
+  <div className="admin-order-section">
+    <h2>{title}</h2>
+    {renderOrderTable(orderList, allowUpdate)}
+  </div>
+); 
 
   return (
     <div className="page">
@@ -229,9 +245,9 @@ function ManageOrders() {
         <h1>Manage Orders</h1>
         <p>View student orders and update order status.</p>
 
-        {renderOrderSection("Today’s Orders", todayOrders)}
-        {renderOrderSection("Yesterday’s Orders", yesterdayOrders)}
-        {renderOrderSection("Previous Orders - Last 7 Days", previousOrders)}
+        {renderOrderSection("Today’s Orders", todayOrders, true)}
+{renderOrderSection("Yesterday’s Orders", yesterdayOrders, false)}
+{renderOrderSection("Previous Orders - Last 7 Days", previousOrders, false)}
       </section>
     </div>
   );

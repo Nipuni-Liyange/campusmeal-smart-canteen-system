@@ -843,3 +843,620 @@ select {
   color: #1f7a3f;
   margin: 0;
 }
+
+.menu-preview-box {
+  margin-top: 12px;
+  margin-bottom: 18px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #f1fff5;
+  border-left: 4px solid #1f7a3f;
+}
+
+.simple-menu-page {
+  margin-top: 30px;
+}
+
+.available-types-card,
+.todays-curries-card,
+.price-settings-card,
+.save-today-menu-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.available-types-card h2,
+.todays-curries-card h2,
+.price-settings-card h2 {
+  color: #1f7a3f;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.available-types-card p,
+.price-settings-card p {
+  color: #555;
+  margin-top: 0;
+}
+
+.menu-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.menu-type-card {
+  position: relative;
+  min-height: 130px;
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  border-radius: 16px;
+  cursor: pointer;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease;
+}
+
+.menu-type-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.selected-menu-type {
+  border: 2px solid #1f7a3f;
+  background: #f1fff5;
+}
+
+.selected-check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 26px;
+  height: 26px;
+  background: #1f7a3f;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.menu-type-icon {
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.menu-type-label {
+  font-weight: 700;
+  color: #222;
+}
+
+.menu-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 26px;
+  margin-top: 26px;
+}
+
+.auto-rice-note {
+  display: inline-block;
+  background: #f1fff5;
+  color: #1f7a3f;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+.curries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.curry-input-row {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.curry-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e9f8ee;
+  color: #1f7a3f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.curry-input-row input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  font-size: 15px;
+}
+
+.add-curry-btn {
+  margin-top: 18px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px dashed #1f7a3f;
+  background: #ffffff;
+  color: #1f7a3f;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.price-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.edit-price-btn {
+  border: 1px solid #f58220;
+  background: #ffffff;
+  color: #f58220;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.price-table-wrapper {
+  overflow-x: auto;
+  margin-top: 18px;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+
+.price-table th {
+  background: #f1fff5;
+  color: #1f7a3f;
+  text-align: left;
+  padding: 14px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.price-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.price-table input {
+  width: 95px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+}
+
+.price-type-icon {
+  margin-right: 10px;
+}
+
+.price-note {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #666;
+}
+
+.save-today-menu-card {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.save-today-menu-card strong {
+  color: #1f7a3f;
+}
+
+.save-today-menu-card p {
+  margin: 5px 0 0;
+  color: #555;
+}
+
+.save-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.save-actions input {
+  padding: 12px 14px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+}
+
+.save-today-btn {
+  border: none;
+  background: #f58220;
+  color: white;
+  padding: 14px 26px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.save-today-btn:hover {
+  background: #e87512;
+}
+
+@media (max-width: 950px) {
+  .menu-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .save-today-menu-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .save-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.student-menu-order-card {
+  max-width: 1100px;
+  margin: 35px auto;
+  background: white;
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 45px;
+  align-items: start;
+}
+
+.student-order-left h2 {
+  margin-top: 0;
+  color: #1f7a3f;
+}
+
+.student-menu-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.student-menu-type {
+  position: relative;
+  min-height: 82px;
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #222;
+  transition: 0.2s ease;
+}
+
+.student-menu-type:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.selected-student-menu-type {
+  border: 2px solid #1f7a3f;
+  background: #f1fff5;
+  color: #1f7a3f;
+}
+
+.student-selected-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #1f7a3f;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.selected-food-title {
+  margin-top: 8px;
+  color: #1f7a3f;
+  font-size: 24px;
+}
+
+.student-price-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.portion-section {
+  margin-top: 18px;
+  margin-bottom: 22px;
+}
+
+.portion-section label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.portion-section select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+}
+
+.additional-items-section {
+  margin-top: 10px;
+}
+
+.additional-items-section h3 {
+  margin-bottom: 12px;
+}
+
+.extra-item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.student-total-box {
+  margin-top: 22px;
+  margin-bottom: 18px;
+  display: flex;
+  gap: 8px;
+  font-size: 19px;
+}
+
+.student-total-box strong {
+  color: #1f7a3f;
+}
+
+.order-now-btn {
+  padding: 13px 28px;
+}
+
+.student-order-right {
+  width: 100%;
+}
+
+.student-recipe-panel {
+  position: relative;
+  width: 100%;
+  min-height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+}
+
+.student-recipe-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--recipe-image);
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  transform: scale(1.12);
+}
+
+.student-recipe-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.student-recipe-box {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  padding: 26px 32px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.14);
+}
+
+.student-recipe-box h2 {
+  margin-top: 0;
+  color: #1f7a3f;
+}
+
+.recipe-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.recipe-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  font-size: 17px;
+  color: #222;
+}
+
+.recipe-list li::before {
+  content: "●";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f28c28;
+  font-size: 18px;
+}
+
+.empty-text {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  color: #666;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 950px) {
+  .student-menu-order-card {
+    grid-template-columns: 1fr;
+    padding: 28px;
+  }
+
+  .student-recipe-panel {
+    min-height: 280px;
+  }
+}
+
+.quantity-section {
+  margin-top: 18px;
+  margin-bottom: 22px;
+}
+
+.quantity-section label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.quantity-section input {
+  width: 100px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  font-size: 15px;
+}
+.status.expired {
+  background: #eeeeee;
+  color: #555555;
+}
+
+.recent-orders-section {
+  max-width: 1100px;
+  margin: 40px auto 0;
+}
+
+.recent-orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.recent-orders-header h2 {
+  color: #1f7a3f;
+  margin: 0;
+}
+
+.recent-orders-header p {
+  color: #555;
+  margin: 6px 0 0;
+}
+
+.view-all-orders-link {
+  text-decoration: none;
+  background: #f58220;
+  color: white;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.recent-orders-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.recent-order-card,
+.recent-empty-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #1f7a3f;
+}
+
+.recent-order-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.recent-order-top h3 {
+  color: #1f7a3f;
+  margin: 0;
+}
+
+.recent-order-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 16px;
+}
+
+.recent-order-details p {
+  margin: 0;
+  color: #333;
+}
+
+.recent-order-details strong {
+  color: #111;
+}
+
+@media (max-width: 800px) {
+  .recent-orders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-orders-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recent-order-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recent-order-action-btn {
+  text-decoration: none;
+  background: #1f7a3f;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.recent-order-action-btn:hover {
+  background: #17602f;
+}

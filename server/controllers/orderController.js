@@ -48,7 +48,7 @@ const extraPrices = {
 // Student places an order
 const createOrder = async (req, res) => {
   try {
-    const { menuItemId, portionSize, extras } = req.body;
+    const { menuItemId, portionSize, extras, quantity } = req.body;
 
     if (!menuItemId || !portionSize) {
       return res.status(400).json({
@@ -61,6 +61,13 @@ const createOrder = async (req, res) => {
         message: "Invalid portion size",
       });
     }
+    const orderQuantity = Number(quantity) || 1;
+
+if (orderQuantity < 1) {
+  return res.status(400).json({
+    message: "Quantity must be at least 1",
+  });
+}
 
     if (!isBeforeDeadline()) {
       return res.status(400).json({
@@ -105,7 +112,8 @@ const createOrder = async (req, res) => {
       0
     );
 
-    const totalAmount = basePrice + extrasTotal;
+    const oneMealTotal = basePrice + extrasTotal;
+    const totalAmount = oneMealTotal * orderQuantity; 
 
     let orderToken = generateOrderToken();
 
@@ -124,6 +132,7 @@ const createOrder = async (req, res) => {
       foodName: menuItem.name,
       recipeType: menuItem.recipeType,
       portionSize,
+      quantity: orderQuantity,
       basePrice,
       extras: calculatedExtras,
       totalAmount,

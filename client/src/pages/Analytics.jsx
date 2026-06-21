@@ -24,7 +24,7 @@ function Analytics() {
   return (
     <div className="page">
       <nav className="navbar">
-        <h2>CampusMeal Admin</h2>
+        <h2>හෙළ බොජුන් Admin</h2>
         <div>
           <Link to="/admin-dashboard" className="nav-link">Dashboard</Link>
           <Link to="/manage-menu" className="nav-link">Menu</Link>

@@ -4,7 +4,7 @@ function Home() {
   return (
     <div className="page">
       <nav className="navbar">
-        <h2>CampusMeal</h2>
+        <h2>හෙළ බොජුන්</h2>
         <div>
           <Link to="/login" className="nav-link">Login</Link>
           <Link to="/register" className="btn">Register</Link>

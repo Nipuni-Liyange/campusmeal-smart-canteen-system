@@ -191,3 +191,47 @@
   font-size: 15px;
   background: white;
 }
+.success-message {
+  background: #e7f8ee;
+  color: #1f7a3f;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.error-message {
+  background: #fdeaea;
+  color: #b42318;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+.auth-card .success-message {
+  width: 100% !important;
+  background-color: #e7f8ee !important;
+  color: #1f7a3f !important;
+  border: 1px solid #b7e4c7 !important;
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+  margin: 14px 0 18px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+.auth-card .error-message {
+  width: 100% !important;
+  background-color: #fdeaea !important;
+  color: #b42318 !important;
+  border: 1px solid #f5b5b5 !important;
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+  margin: 14px 0 18px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}

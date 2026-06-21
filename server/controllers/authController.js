@@ -41,13 +41,13 @@ const registerUser = async (req, res) => {
     if (selectedRole === "admin") {
       if (!adminCode) {
         return res.status(400).json({
-          message: "Admin secret code is required",
+          message: "Admin secret is required",
         });
       }
 
       if (adminCode !== process.env.ADMIN_REGISTER_CODE) {
         return res.status(403).json({
-          message: "Invalid admin secret code",
+          message: "Invalid admin code",
         });
       }
     }
@@ -56,10 +56,10 @@ const registerUser = async (req, res) => {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(400).json({
-        message: "User already exists with this email",
-      });
-    }
+  return res.status(400).json({
+    message: "You have already registered",
+  });
+}
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
@@ -91,12 +91,18 @@ const registerUser = async (req, res) => {
       },
       token: generateToken(user._id),
     });
-  } catch (error) {
-    res.status(500).json({
-      message: "Server error during registration",
-      error: error.message,
+} catch (error) {
+  if (error.code === 11000) {
+    return res.status(400).json({
+      message: "You have already registered",
     });
   }
+
+  res.status(500).json({
+    message: "Server error during registration",
+    error: error.message,
+  });
+}  
 };
 
 // Login user: student or admin

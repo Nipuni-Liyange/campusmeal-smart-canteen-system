@@ -184,7 +184,7 @@ const fetchMenu = async () => {
           <span className="deadline-icon">⏰</span>
 
           <div>
-            <strong>Orders close at 3:00 PM</strong>
+            <strong>Orders close at 6:00 PM</strong>
             <p>Please place your dinner order before the daily deadline.</p>
           </div>
         </div>

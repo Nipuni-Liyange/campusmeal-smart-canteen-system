@@ -20,11 +20,11 @@ const isBeforeDeadline = () => {
   const minutes = sriLankaTime.getMinutes();
 
   // Deadline: 3.00 PM
-  if (hours < 15) {
+  if (hours < 18) {
     return true;
   }
 
-  if (hours === 15 && minutes === 0) {
+  if (hours === 18 && minutes === 0) {
     return true;
   }
 
@@ -71,7 +71,7 @@ if (orderQuantity < 1) {
 
     if (!isBeforeDeadline()) {
       return res.status(400).json({
-        message: "Ordering is closed for today. Please order before 3.00 PM.",
+        message: "Ordering is closed for today. Please order before 6.00 PM.",
       });
     }
 

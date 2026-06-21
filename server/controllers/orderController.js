@@ -8,7 +8,7 @@ const getTodayDate = () => {
   });
 };
 
-// Check whether current time is before 3.00 PM Sri Lanka time
+// Check whether current time is before 10.00 PM Sri Lanka time
 const isBeforeDeadline = () => {
   const now = new Date();
 
@@ -19,12 +19,12 @@ const isBeforeDeadline = () => {
   const hours = sriLankaTime.getHours();
   const minutes = sriLankaTime.getMinutes();
 
-  // Deadline: 3.00 PM
-  if (hours < 18) {
+  // Deadline: 10.00 PM
+  if (hours < 22) {
     return true;
   }
 
-  if (hours === 18 && minutes === 0) {
+  if (hours === 22 && minutes === 0) {
     return true;
   }
 
@@ -71,7 +71,7 @@ if (orderQuantity < 1) {
 
     if (!isBeforeDeadline()) {
       return res.status(400).json({
-        message: "Ordering is closed for today. Please order before 6.00 PM.",
+        message: "Ordering is closed for today. Please order before 10.00 PM.",
       });
     }
 

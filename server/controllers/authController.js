@@ -9,16 +9,47 @@ const generateToken = (userId) => {
   });
 };
 
-// Register student
+// Register user: student or admin
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, regNo } = req.body;
+    const { name, email, password, role, regNo, adminCode } = req.body;
 
-    // Check empty fields
-    if (!name || !email || !password || !regNo) {
+    const selectedRole = role || "student";
+
+    // Check common required fields
+    if (!name || !email || !password) {
       return res.status(400).json({
         message: "Please fill all required fields",
       });
+    }
+
+    // Check valid role
+    if (selectedRole !== "student" && selectedRole !== "admin") {
+      return res.status(400).json({
+        message: "Invalid user role",
+      });
+    }
+
+    // Student must have registration number
+    if (selectedRole === "student" && !regNo) {
+      return res.status(400).json({
+        message: "Registration number is required for students",
+      });
+    }
+
+    // Admin must have secret code
+    if (selectedRole === "admin") {
+      if (!adminCode) {
+        return res.status(400).json({
+          message: "Admin secret code is required",
+        });
+      }
+
+      if (adminCode !== process.env.ADMIN_REGISTER_CODE) {
+        return res.status(403).json({
+          message: "Invalid admin secret code",
+        });
+      }
     }
 
     // Check if user already exists
@@ -34,14 +65,20 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create user as student
-    const user = await User.create({
+    // Create user data
+    const userData = {
       name,
       email,
       password: hashedPassword,
-      regNo,
-      role: "student",
-    });
+      role: selectedRole,
+    };
+
+    // Only students need regNo
+    if (selectedRole === "student") {
+      userData.regNo = regNo;
+    }
+
+    const user = await User.create(userData);
 
     res.status(201).json({
       message: "User registered successfully",
@@ -62,15 +99,24 @@ const registerUser = async (req, res) => {
   }
 };
 
-// Login user
+// Login user: student or admin
 const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
+
+    const selectedRole = role || "student";
 
     // Check empty fields
     if (!email || !password) {
       return res.status(400).json({
         message: "Please enter email and password",
+      });
+    }
+
+    // Check valid role
+    if (selectedRole !== "student" && selectedRole !== "admin") {
+      return res.status(400).json({
+        message: "Invalid user role",
       });
     }
 
@@ -89,6 +135,13 @@ const loginUser = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(401).json({
         message: "Invalid email or password",
+      });
+    }
+
+    // Check selected login role with actual user role
+    if (user.role !== selectedRole) {
+      return res.status(403).json({
+        message: `This account is not registered as ${selectedRole}`,
       });
     }
 

@@ -2,6 +2,31 @@
 
 CampusMeal is a MERN stack web application developed for the DesignHer 2.0 competition. The system helps university students view the daily dinner menu and pre-order dinner online instead of using SMS or phone calls. It also helps canteen staff manage menu items, track student orders, update order status, and analyze daily food demand.
 
+## Test Accounts (For Demo Purpose Only)
+
+These credentials can be used to test the system during evaluation.
+
+### Student Test Account
+
+* Email: [teststudent@gmail.com]
+* Password: 123456
+
+### Admin Test Account
+
+* Email: [admin@campusmeal.com]
+* Password: admin123
+* Admin Secret Code: campusmeal_admin_2026
+
+> Note: Admin registration requires the correct Admin Secret Code. Without it, registration will be rejected by the system.
+
+## Admin Registration Requirement
+
+To register as an admin, use:
+
+Admin Secret Code: campusmeal_admin_2026
+
+This value is validated on the backend using environment configuration.
+
 ## Problem Statement
 
 In many university canteens, students order dinner using SMS messages or phone calls. This manual process can cause missed orders, unclear menu information, difficulty in counting total orders, and food wastage. Students may not know the available dinner menu early, and canteen staff must manually manage order details.
@@ -11,6 +36,8 @@ In many university canteens, students order dinner using SMS messages or phone c
 CampusMeal provides a web-based system where students can view the daily dinner menu, place dinner orders, check order status, and receive an order token. Canteen administrators can add menu items, view all orders, update order status, and check daily demand analytics.
 
 ## Key Features
+
+
 
 ### Student Features
 
@@ -23,6 +50,7 @@ CampusMeal provides a web-based system where students can view the daily dinner 
 
 ### Admin Features
 
+* Admin register (admin code :- campusmeal_admin_2026)
 * Admin login
 * Add daily menu items
 * View menu items
